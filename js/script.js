@@ -38,11 +38,11 @@ document.addEventListener('click', (event) => {
         modalView(event.target);
     }
     //Display Prev modal when any button with .card clicked  
-    if(event.target.className.includes('button.modal-prev')) {
+    if(event.target.className.includes('modal-prev')) {
         showPrev();
     }
     //Display Next modal when any button with .card clicked  
-    if(event.target.className.includes('button.modal-next')) {
+    if(event.target.className.includes('modal-next')) {
         showNext();
     }
     //Close modal  when X button with class .modal-close-btn clicked  
@@ -197,7 +197,11 @@ function modalView (target) {
     //make modal content visible after image loads  and remove placeholder loader .loading
     modalImg.onload = function () {
         modalImg.parentNode.className = 'modal-info-container';
-        document.querySelector('.loading').remove();
+        const loader = document.querySelector('.loading');
+        if(loader){
+            loader.remove();
+        }
+        
 
     }
 }
@@ -230,6 +234,9 @@ function showFoundSearch (event) {
     event.preventDefault();
     const value = document.getElementById('search-input').value.toLowerCase();
     const names = document.querySelectorAll('#name');
+    //iterate through all cards and show them all
+    cards = document.querySelectorAll('.card');
+    [...cards].forEach(card => card.className = 'card');
     //iterate through names and check if is includes search input value and then hide card if does not include
     [...names].forEach((name) => {
         const nameText  = name.textContent.toLowerCase();
